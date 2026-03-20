@@ -35,7 +35,7 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white rounded-lg shadow p-4 sm:p-6">
             <h2 class="text-xl sm:text-2xl font-bold mb-4 text-gray-800">Merged Pull Requests Table</h2>
-            <p class="text-sm text-gray-600 mb-4">Note: This shows repositories with their merged PR counts. Individual merged PR details are not available in the current data.</p>
+            <p class="text-sm text-gray-600 mb-4">Note: This shows repositories with their merged PR counts.</p>
             <div class="overflow-x-auto">
                 <table class="min-w-full table-auto">
                     <thead>
@@ -76,7 +76,7 @@
 
                 // Create array of repos with stats for sorting
                 const reposArray = Object.entries(repoStats)
-                    .filter(([repo, stats]) => stats.merged > 0 || stats.total > 0)
+                    .filter(([, stats]) => stats.merged > 0)
                     .map(([repo, stats]) => ({ repo, stats }))
                     // Sort by merged count (descending - most merged first)
                     .sort((a, b) => b.stats.merged - a.stats.merged);
@@ -85,7 +85,12 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td class="px-4 py-2">
-                            <a href="https://github.com/${repo}" target="_blank" class="text-blue-600 hover:text-blue-800">${repo}</a>
+                            <a href="https://github.com/${repo}" target="_blank" class="text-blue-600 hover:text-blue-800 flex items-center">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                                ${repo}
+                            </a>
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${stats.merged}</td>
                         <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${stats.total}</td>

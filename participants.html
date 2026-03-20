@@ -98,7 +98,12 @@
                             <img class="h-8 w-8 rounded-full" src="${participant.avatar}" alt="${participant.username}">
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap">
-                            <a href="${participant.url}" target="_blank" class="text-blue-600 hover:text-blue-800">${participant.username}</a>
+                            <a href="${participant.url}" target="_blank" class="text-blue-600 hover:text-blue-800 flex items-center">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                                ${participant.username}
+                            </a>
                         </td>
                         <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${participant.mergedCount || 0}</td>
                         <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${participant.prCount || 0}</td>

@@ -75,14 +75,18 @@
 
                 // Collect all reviews (which contain PR info)
                 const reviews = [];
+                const seenUrls = new Set();
                 [...leaderboard, ...reviewLeaderboard].forEach(p => {
                     if (p.reviews) {
                         p.reviews.forEach(review => {
-                            reviews.push({
-                                ...review,
-                                reviewer: p.username,
-                                reviewerAvatar: p.avatar
-                            });
+                            if (!seenUrls.has(review.html_url)) {
+                                seenUrls.add(review.html_url);
+                                reviews.push({
+                                    ...review,
+                                    reviewer: p.username,
+                                    reviewerAvatar: p.avatar
+                                });
+                            }
                         });
                     }
                 });
@@ -101,26 +105,77 @@
                 reviews.forEach(review => {
                     const row = document.createElement('tr');
                     const submittedDate = new Date(review.submitted_at).toLocaleDateString();
-                    row.innerHTML = `
-                        <td class="px-4 py-2">
-                            <a href="${review.html_url}" target="_blank" class="text-blue-600 hover:text-blue-800">${review.pull_request_title}</a>
-                        </td>
-                        <td class="px-4 py-2 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <img class="h-6 w-6 rounded-full mr-2" src="${review.reviewerAvatar}" alt="${review.reviewer}">
-                                <span class="text-sm text-gray-900">${review.reviewer}</span>
-                            </div>
-                        </td>
-                        <td class="px-4 py-2 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                ${review.state === 'APPROVED' ? 'bg-green-100 text-green-800' : 
-                                  review.state === 'COMMENTED' ? 'bg-yellow-100 text-yellow-800' : 
-                                  'bg-gray-100 text-gray-800'}">
-                                ${review.state}
-                            </span>
-                        </td>
-                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${submittedDate}</td>
-                    `;
+
+                    // --- Title cell ---
+                    const tdTitle = document.createElement('td');
+                    tdTitle.className = 'px-4 py-2';
+
+                    const link = document.createElement('a');
+                    link.href = review.html_url;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.className = 'text-blue-600 hover:text-blue-800 flex items-center';
+
+                    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    svg.setAttribute('width', '16');
+                    svg.setAttribute('height', '16');
+                    svg.setAttribute('viewBox', '0 0 24 24');
+                    svg.setAttribute('fill', 'none');
+                    svg.setAttribute('stroke', 'currentColor');
+                    svg.setAttribute('stroke-width', '2');
+                    svg.setAttribute('stroke-linecap', 'round');
+                    svg.setAttribute('stroke-linejoin', 'round');
+                    svg.style.marginRight = '0.5rem';
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    path.setAttribute('d', 'M9 18l6-6-6-6');
+                    svg.appendChild(path);
+
+                    link.appendChild(svg);
+                    link.appendChild(document.createTextNode(review.pull_request_title));
+                    tdTitle.appendChild(link);
+
+                    // --- Reviewer cell ---
+                    const tdReviewer = document.createElement('td');
+                    tdReviewer.className = 'px-4 py-2 whitespace-nowrap';
+
+                    const reviewerDiv = document.createElement('div');
+                    reviewerDiv.className = 'flex items-center';
+
+                    const avatar = document.createElement('img');
+                    avatar.className = 'h-6 w-6 rounded-full mr-2';
+                    avatar.src = review.reviewerAvatar;
+                    avatar.alt = review.reviewer;
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'text-sm text-gray-900';
+                    nameSpan.textContent = review.reviewer;
+
+                    reviewerDiv.appendChild(avatar);
+                    reviewerDiv.appendChild(nameSpan);
+                    tdReviewer.appendChild(reviewerDiv);
+
+                    // --- State cell ---
+                    const tdState = document.createElement('td');
+                    tdState.className = 'px-4 py-2 whitespace-nowrap';
+
+                    const stateBadge = document.createElement('span');
+                    const stateColorClass =
+                        review.state === 'APPROVED'  ? 'bg-green-100 text-green-800' :
+                        review.state === 'COMMENTED' ? 'bg-yellow-100 text-yellow-800' :
+                                                       'bg-gray-100 text-gray-800';
+                    stateBadge.className = `px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${stateColorClass}`;
+                    stateBadge.textContent = review.state;
+                    tdState.appendChild(stateBadge);
+
+                    // --- Date cell ---
+                    const tdDate = document.createElement('td');
+                    tdDate.className = 'px-4 py-2 whitespace-nowrap text-sm text-gray-900';
+                    tdDate.textContent = submittedDate;
+
+                    row.appendChild(tdTitle);
+                    row.appendChild(tdReviewer);
+                    row.appendChild(tdState);
+                    row.appendChild(tdDate);
                     tbody.appendChild(row);
                 });
             } catch (error) {

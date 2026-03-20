@@ -16,7 +16,7 @@ class HackathonIndex {
     async init() {
         this.loadedAt = new Date();
         const global = this.config.global || {};
-        
+
         // Update site title
         if (global.siteName) {
             document.getElementById('site-title').textContent = global.siteName;
@@ -105,7 +105,7 @@ class HackathonIndex {
         const startDate = new Date(startTime);
         const endDate = new Date(endTime);
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        
+
         return `${startDate.toLocaleDateString('en-US', options)} - ${endDate.toLocaleDateString('en-US', options)}`;
     }
 
@@ -124,7 +124,7 @@ class HackathonIndex {
             const remaining = endDate - now;
             const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
             const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            
+
             if (days > 0) {
                 return `${days} day${days !== 1 ? 's' : ''} remaining`;
             } else if (hours > 0) {
@@ -144,9 +144,9 @@ class HackathonIndex {
         this.currentFilter = filter;
         const container = document.getElementById('hackathons-grid');
         const noHackathonsMsg = document.getElementById('no-hackathons');
-        
+
         let hackathons = this.config.hackathons;
-        
+
         // Filter hackathons
         if (filter !== 'all') {
             hackathons = hackathons.filter(h => {
@@ -168,15 +168,15 @@ class HackathonIndex {
         hackathons.sort((a, b) => {
             const statusA = this.getHackathonStatus(a);
             const statusB = this.getHackathonStatus(b);
-            
+
             const statusOrder = { ongoing: 0, upcoming: 1, ended: 2 };
             const orderA = statusOrder[statusA.status];
             const orderB = statusOrder[statusB.status];
-            
+
             if (orderA !== orderB) {
                 return orderA - orderB;
             }
-            
+
             // If same status, sort by date (most recent first for ended, earliest first for others)
             if (statusA.status === 'ended') {
                 return new Date(b.endTime) - new Date(a.endTime);

@@ -77,6 +77,38 @@
             height: 80px;
         }
         
+        /* Quick Stats Card Styles */
+        .quick-stat-card {
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .quick-stat-card.clickable:hover {
+            background-color: #FEE2E2 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .quick-stat-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #666;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+        }
+        .quick-stat-card.clickable:hover .quick-stat-tooltip {
+            opacity: 1;
+        }
+        
         /* Mobile-specific styles */
         @media (max-width: 640px) {
             .btn-text {
@@ -136,23 +168,28 @@
 
         <!-- Quick Stats -->
         <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3 lg:gap-4 mb-6 sm:mb-8">
-            <div class="bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-gray-50 transition-colors" id="participant" onclick="window.location.href='participants.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="participant" onclick="window.location.href='participants.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+                <div class="quick-stat-tooltip">View all participants</div>
                 <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-gray-700">Participants</h3>
                 <p class="text-lg sm:text-2xl lg:text-3xl font-bold text-red-600" id="participant-count">0</p>
             </div>
-            <div class="bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-gray-50 transition-colors" id="pr" onclick="window.location.href='prs.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="pr" onclick="window.location.href='prs.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+                <div class="quick-stat-tooltip">View all PRs</div>
                 <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-gray-700">Pull Requests</h3>
                 <p class="text-lg sm:text-2xl lg:text-3xl font-bold text-red-600" id="pr-count">0</p>
             </div>
-            <div class="bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-gray-50 transition-colors" id="merged-pr" onclick="window.location.href='merged-prs.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="merged-pr" onclick="window.location.href='merged-prs.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+                <div class="quick-stat-tooltip">View merged PRs</div>
                 <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-gray-700">Merged PRs</h3>
                 <p class="text-lg sm:text-2xl lg:text-3xl font-bold text-red-600" id="merged-pr-count">0</p>
             </div>
-            <div class="bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-gray-50 transition-colors" id="issue" onclick="window.location.href='issues.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="issue" onclick="window.location.href='issues.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+                <div class="quick-stat-tooltip">View all issues</div>
                 <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-gray-700">Issues</h3>
                 <p class="text-lg sm:text-2xl lg:text-3xl font-bold text-red-600" id="issue-count">0</p>
             </div>
-            <div class="bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-gray-50 transition-colors" id="repo" onclick="window.location.href='repositories.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="repo" onclick="window.location.href='repositories.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+                <div class="quick-stat-tooltip">View all repos</div>
                 <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-gray-700">Repositories</h3>
                 <p class="text-lg sm:text-2xl lg:text-3xl font-bold text-red-600" id="repo-count">0</p>
             </div>
