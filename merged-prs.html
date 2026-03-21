@@ -63,14 +63,17 @@
     <script>
         // Get hackathon slug from URL or default
         const urlParams = new URLSearchParams(window.location.search);
-        const slug = urlParams.get('slug') || 'may-2025-hackathon'; // Default to one of the hackathons
+        const rawSlug = urlParams.get('slug');
+        const slug = /^[a-z0-9-]+$/i.test(rawSlug || '') ? rawSlug : 'may-2025-hackathon';
 
         async function loadMergedPRs() {
             try {
+               
                 const response = await fetch(`hackathon-data/${slug}.json`);
+                if (!response.ok) throw new Error(`Failed to load ${slug}: ${response.status}`);
                 const data = await response.json();
                 const repoStats = data.stats.repoStats || {};
-
+             
                 const tbody = document.getElementById('merged-prs-table-body');
                 tbody.innerHTML = '';
 
@@ -85,7 +88,7 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td class="px-4 py-2">
-                            <a href="https://github.com/${repo}" target="_blank" class="text-blue-600 hover:text-blue-800 flex items-center">
+                            <a href="https://github.com/${repo}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 flex items-center">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                                     <path d="M9 18l6-6-6-6"/>
                                 </svg>
