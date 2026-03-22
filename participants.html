@@ -64,7 +64,9 @@
     <script>
         // Get hackathon slug from URL or default
         const urlParams = new URLSearchParams(window.location.search);
-        const slug = urlParams.get('slug') || 'may-2025-hackathon'; // Default to one of the hackathons
+        const defaultSlug = 'may-2025-hackathon'; // Default to one of the hackathons
+        const slugParam = urlParams.get('slug');
+        const slug = slugParam && /^[a-z0-9-]+$/.test(slugParam) ? slugParam : defaultSlug;
 
         async function loadParticipants() {
             try {
