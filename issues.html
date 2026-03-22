@@ -68,8 +68,11 @@
         async function loadIssues() {
             try {
                 const response = await fetch(`hackathon-data/${slug}.json`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load issues data (${response.status} ${response.statusText})`);
+                }
                 const data = await response.json();
-                const repoStats = data.stats.repoStats || {};
+                const repoStats = (data && data.stats && data.stats.repoStats) ? data.stats.repoStats : {};
 
                 const tbody = document.getElementById('issues-table-body');
                 tbody.innerHTML = '';
