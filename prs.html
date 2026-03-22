@@ -68,6 +68,9 @@
         async function loadPRs() {
             try {
                 const response = await fetch(`hackathon-data/${slug}.json`);
+                if (!response.ok) {
+                    throw new Error(`Failed to load PR data: ${response.status} ${response.statusText}`);
+                }
                 const data = await response.json();
                 const stats = data.stats || {};
                 const leaderboard = stats.leaderboard || [];
