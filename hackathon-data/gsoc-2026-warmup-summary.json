@@ -1,27 +1,129 @@
 {
-  "participantCount": 176,
-  "totalPRs": 2481,
-  "mergedPRs": 1592,
-  "totalIssues": 746,
-  "repositories": 55,
+  "participantCount": 203,
+  "totalPRs": 2669,
+  "mergedPRs": 1658,
+  "totalIssues": 839,
+  "repositories": 54,
   "topContributors": [
     {
       "username": "Nachiket-Roy",
       "avatar": "https://avatars.githubusercontent.com/u/204239697?v=4",
       "url": "https://github.com/Nachiket-Roy",
-      "mergedCount": 72
+      "mergedCount": 71
     },
     {
       "username": "mdkaifansari04",
       "avatar": "https://avatars.githubusercontent.com/u/117475603?v=4",
       "url": "https://github.com/mdkaifansari04",
-      "mergedCount": 58
+      "mergedCount": 57
     },
     {
-      "username": "Pritz395",
-      "avatar": "https://avatars.githubusercontent.com/u/146115505?v=4",
-      "url": "https://github.com/Pritz395",
+      "username": "Jayant2908",
+      "avatar": "https://avatars.githubusercontent.com/u/200989760?v=4",
+      "url": "https://github.com/Jayant2908",
       "mergedCount": 39
+    }
+  ],
+  "recentPRs": [
+    {
+      "title": "fix: toggle screen share button to stop sharing on second click",
+      "url": "https://github.com/OWASP-BLT/BLT-SafeCloak/pull/98",
+      "username": "Chaimaekit",
+      "avatar": "https://avatars.githubusercontent.com/u/96260441?v=4",
+      "state": "open",
+      "created_at": "2026-04-20T12:32:05Z",
+      "merged_at": null,
+      "repository": "OWASP-BLT/BLT-SafeCloak"
+    },
+    {
+      "title": "add peer reconnection with exponential backoff on disconnect",
+      "url": "https://github.com/OWASP-BLT/BLT-SafeCloak/pull/97",
+      "username": "azizrebhi",
+      "avatar": "https://avatars.githubusercontent.com/u/154744962?v=4",
+      "state": "open",
+      "created_at": "2026-04-19T21:08:32Z",
+      "merged_at": null,
+      "repository": "OWASP-BLT/BLT-SafeCloak"
+    },
+    {
+      "title": "feat(video-room): add realtime raise-hand in participant list and refine lobby presence UI",
+      "url": "https://github.com/OWASP-BLT/BLT-SafeCloak/pull/95",
+      "username": "Rudrawhy",
+      "avatar": "https://avatars.githubusercontent.com/u/154898503?v=4",
+      "state": "closed",
+      "created_at": "2026-04-19T20:02:10Z",
+      "merged_at": "2026-04-19T20:49:08Z",
+      "repository": "OWASP-BLT/BLT-SafeCloak"
+    },
+    {
+      "title": "fix(ui): swap join and create room buttons on invite link (#93)",
+      "url": "https://github.com/OWASP-BLT/BLT-SafeCloak/pull/94",
+      "username": "ojaswa072",
+      "avatar": "https://avatars.githubusercontent.com/u/230836303?v=4",
+      "state": "closed",
+      "created_at": "2026-04-19T18:11:54Z",
+      "merged_at": "2026-04-19T19:49:20Z",
+      "repository": "OWASP-BLT/BLT-SafeCloak"
+    },
+    {
+      "title": "fix(audio): resolve Noise Suppression Button Not Working in Lobby (#91)",
+      "url": "https://github.com/OWASP-BLT/BLT-SafeCloak/pull/92",
+      "username": "ojaswa072",
+      "avatar": "https://avatars.githubusercontent.com/u/230836303?v=4",
+      "state": "open",
+      "created_at": "2026-04-19T17:05:57Z",
+      "merged_at": null,
+      "repository": "OWASP-BLT/BLT-SafeCloak"
+    },
+    {
+      "title": "chore: delete unused ossh include files #6030",
+      "url": "https://github.com/OWASP-BLT/BLT/pull/6211",
+      "username": "giftidris4-spec",
+      "avatar": "https://avatars.githubusercontent.com/u/270459024?v=4",
+      "state": "closed",
+      "created_at": "2026-04-19T14:53:46Z",
+      "merged_at": null,
+      "repository": "OWASP-BLT/BLT"
+    },
+    {
+      "title": "Fix/xss injection prevention",
+      "url": "https://github.com/OWASP-BLT/BLT-Jobs/pull/78",
+      "username": "sidd190",
+      "avatar": "https://avatars.githubusercontent.com/u/73955358?v=4",
+      "state": "closed",
+      "created_at": "2026-04-19T14:03:18Z",
+      "merged_at": "2026-04-19T15:40:03Z",
+      "repository": "OWASP-BLT/BLT-Jobs"
+    },
+    {
+      "title": "refactor: simplify room id copy event handling",
+      "url": "https://github.com/OWASP-BLT/BLT-SafeCloak/pull/90",
+      "username": "Rudrawhy",
+      "avatar": "https://avatars.githubusercontent.com/u/154898503?v=4",
+      "state": "closed",
+      "created_at": "2026-04-19T13:41:47Z",
+      "merged_at": "2026-04-19T20:47:57Z",
+      "repository": "OWASP-BLT/BLT-SafeCloak"
+    },
+    {
+      "title": "fix(consent): Use Crypto.randomId() for consent entry IDs",
+      "url": "https://github.com/OWASP-BLT/BLT-SafeCloak/pull/89",
+      "username": "azizrebhi",
+      "avatar": "https://avatars.githubusercontent.com/u/154744962?v=4",
+      "state": "open",
+      "created_at": "2026-04-19T10:14:52Z",
+      "merged_at": null,
+      "repository": "OWASP-BLT/BLT-SafeCloak"
+    },
+    {
+      "title": "fix(video): Overhaul voice changer DSP algorithms and resolve initialization bugs",
+      "url": "https://github.com/OWASP-BLT/BLT-SafeCloak/pull/88",
+      "username": "ojaswa072",
+      "avatar": "https://avatars.githubusercontent.com/u/230836303?v=4",
+      "state": "closed",
+      "created_at": "2026-04-19T08:06:29Z",
+      "merged_at": "2026-04-19T19:31:01Z",
+      "repository": "OWASP-BLT/BLT-SafeCloak"
     }
   ]
 }
