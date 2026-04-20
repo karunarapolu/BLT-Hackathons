@@ -168,27 +168,27 @@
 
         <!-- Quick Stats -->
         <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3 lg:gap-4 mb-6 sm:mb-8">
-            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="participant" onclick="window.location.href='participants.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="participant" onclick="window.location.href='dashboard.html?slug=' + (window.currentSlug || 'may-2025-hackathon') + '&tab=participants'">
                 <div class="quick-stat-tooltip">View all participants</div>
                 <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-gray-700">Participants</h3>
                 <p class="text-lg sm:text-2xl lg:text-3xl font-bold text-red-600" id="participant-count">0</p>
             </div>
-            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="pr" onclick="window.location.href='prs.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="pr" onclick="window.location.href='dashboard.html?slug=' + (window.currentSlug || 'may-2025-hackathon') + '&tab=prs'">
                 <div class="quick-stat-tooltip">View all PRs</div>
                 <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-gray-700">Pull Requests</h3>
                 <p class="text-lg sm:text-2xl lg:text-3xl font-bold text-red-600" id="pr-count">0</p>
             </div>
-            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="merged-pr" onclick="window.location.href='merged-prs.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="merged-pr" onclick="window.location.href='dashboard.html?slug=' + (window.currentSlug || 'may-2025-hackathon') + '&tab=merged-prs'">
                 <div class="quick-stat-tooltip">View merged PRs</div>
                 <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-gray-700">Merged PRs</h3>
                 <p class="text-lg sm:text-2xl lg:text-3xl font-bold text-red-600" id="merged-pr-count">0</p>
             </div>
-            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="issue" onclick="window.location.href='issues.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="issue" onclick="window.location.href='dashboard.html?slug=' + (window.currentSlug || 'may-2025-hackathon') + '&tab=issues'">
                 <div class="quick-stat-tooltip">View all issues</div>
                 <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-gray-700">Issues</h3>
                 <p class="text-lg sm:text-2xl lg:text-3xl font-bold text-red-600" id="issue-count">0</p>
             </div>
-            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="repo" onclick="window.location.href='repositories.html?slug=' + (window.currentSlug || 'may-2025-hackathon')">
+            <div class="quick-stat-card clickable bg-white rounded-lg shadow p-2 sm:p-4 lg:p-6 text-center cursor-pointer hover:bg-red-50 transition-colors" id="repo" onclick="window.location.href='dashboard.html?slug=' + (window.currentSlug || 'may-2025-hackathon') + '&tab=repositories'">
                 <div class="quick-stat-tooltip">View all repos</div>
                 <h3 class="text-xs sm:text-sm lg:text-base font-semibold text-gray-700">Repositories</h3>
                 <p class="text-lg sm:text-2xl lg:text-3xl font-bold text-red-600" id="repo-count">0</p>

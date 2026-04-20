@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Dashboard - All Data</title>
+    <meta name="description" content="Complete hackathon dashboard with all data tables">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        .tab-active {
+            background-color: #dc2626;
+            color: white;
+        }
+        .tab-inactive {
+            background-color: #f3f4f6;
+            color: #374151;
+        }
+        .tab-inactive:hover {
+            background-color: #e5e7eb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-chart-bar text-red-600 text-xl sm:text-2xl mr-2 sm:mr-3"></i>
+                    <h1 class="text-base sm:text-lg lg:text-xl font-bold text-gray-900">Hackathon Dashboard</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-arrow-left mr-2"></i>Back to Hackathons
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white rounded-lg shadow mb-6">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex space-x-8 px-6" aria-label="Tabs">
+                    <button id="tab-participants" class="tab-button whitespace-nowrap p-4 m-2 border-b-2 font-medium text-sm tab-active border-red-500" data-tab="participants">
+                        <i class="fas fa-trophy mr-2" ></i>Participants
+                    </button>
+                    <button id="tab-prs" class="tab-button whitespace-nowrap p-4 m-2 border-b-2 font-medium text-sm tab-inactive border-transparent" data-tab="prs">
+                        <i class="fas fa-code-branch mr-2 "></i>Pull Requests
+                    </button>
+                    <button id="tab-merged-prs" class="tab-button whitespace-nowrap p-4 m-2 border-b-2 font-medium text-sm tab-inactive border-transparent" data-tab="merged-prs">
+                        <i class="fas fa-check-circle mr-2"></i>Merged PRs
+                    </button>
+                    <button id="tab-issues" class="tab-button whitespace-nowrap p-4 m-2 border-b-2 font-medium text-sm tab-inactive border-transparent" data-tab="issues">
+                        <i class="fas fa-exclamation-circle mr-2"></i>Issues
+                    </button>
+                    <button id="tab-repositories" class="tab-button whitespace-nowrap p-4 m-2 border-b-2 font-medium text-sm tab-inactive border-transparent" data-tab="repositories">
+                        <i class="fas fa-code-branch mr-2"></i>Repositories
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <div id="tab-content" class="bg-white rounded-lg shadow p-4 sm:p-6">
+            <div id="content-participants" class="tab-content">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-gray-800">Participants Table</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Avatar</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Merged PRs</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total PRs</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reviews</th>
+                            </tr>
+                        </thead>
+                        <tbody id="participants-table-body" class="bg-white divide-y divide-gray-200">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="content-prs" class="tab-content hidden">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-gray-800">Pull Requests Table</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Author</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Repository</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Merged</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prs-table-body" class="bg-white divide-y divide-gray-200">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="content-merged-prs" class="tab-content hidden">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-gray-800">Merged Pull Requests Table</h2>
+                <p class="text-sm text-gray-600 mb-4">Note: This shows repositories with their merged PR counts.</p>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Repository</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Merged PRs</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total PRs</th>
+                            </tr>
+                        </thead>
+                        <tbody id="merged-prs-table-body" class="bg-white divide-y divide-gray-200">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="content-issues" class="tab-content hidden">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-gray-800">Issues Table</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Repository</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Open Issues</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Closed Issues</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Issues</th>
+                            </tr>
+                        </thead>
+                        <tbody id="issues-table-body" class="bg-white divide-y divide-gray-200">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="content-repositories" class="tab-content hidden">
+                <h2 class="text-xl sm:text-2xl font-bold mb-4 text-gray-800">Repositories Table</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full table-auto">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Repository</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pull Requests</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Merged PRs</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issues</th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Closed Issues</th>
+                            </tr>
+                        </thead>
+                        <tbody id="repos-table-body" class="bg-white divide-y divide-gray-200">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-600">
+            <p>Powered by <a href="https://github.com/OWASP-BLT/BLT-Hackathons" class="text-red-600 hover:underline" target="_blank" rel="noopener noreferrer">BLT-Hackathons</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Get hackathon slug from URL or default with sanitization
+        const urlParams = new URLSearchParams(window.location.search);
+        const defaultSlug = 'may-2025-hackathon';
+        const slugParam = urlParams.get('slug');
+        // Sanitization fix as suggested by Ankitsinghsisodya
+        const slug = slugParam && /^[a-z0-9-]+$/i.test(slugParam) ? slugParam : defaultSlug;
+
+        // Get initial tab from URL
+        const initialTab = urlParams.get('tab') || 'participants';
+
+        let currentData = null;
+
+        // Tab switching functionality
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('tab-active', 'border-red-500');
+                button.classList.add('tab-inactive', 'border-transparent');
+            });
+
+            const contentElement = document.getElementById('content-' + tabName);
+            if (contentElement) contentElement.classList.remove('hidden');
+
+            const tabElement = document.getElementById('tab-' + tabName);
+            if (tabElement) {
+                tabElement.classList.remove('tab-inactive', 'border-transparent');
+                tabElement.classList.add('tab-active', 'border-red-500');
+            }
+        }
+
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabName = button.getAttribute('data-tab');
+                switchTab(tabName);
+            });
+        });
+
+        async function loadData() {
+            try {
+                const response = await fetch(`hackathon-data/${slug}.json`);
+                if (!response.ok) throw new Error(`Failed to load ${slug}: ${response.status}`);
+                currentData = await response.json();
+
+                loadParticipants();
+                loadPRs();
+                loadMergedPRs();
+                loadIssues();
+                loadRepositories();
+
+                switchTab(initialTab);
+            } catch (error) {
+                console.error('Error loading data:', error);
+                ['participants', 'prs', 'merged-prs', 'issues', 'repositories'].forEach(tab => {
+                    const tbody = document.getElementById(tab + '-table-body');
+                    if (tbody) {
+                        const colspan = tab === 'participants' ? 7 : tab === 'prs' ? 6 : tab === 'merged-prs' ? 3 : tab === 'issues' ? 4 : 5;
+                        tbody.innerHTML = `<tr><td colspan="${colspan}" class="px-4 py-2 text-center text-gray-500">Error loading data</td></tr>`;
+                    }
+                });
+            }
+        }
+
+        function loadParticipants() {
+            if (!currentData) return;
+            const stats = currentData.stats || {};
+            const leaderboard = stats.leaderboard || [];
+            const reviewLeaderboard = stats.reviewLeaderboard || [];
+            const recentPRs = currentData.recentPRs || currentData.stats?.recentPRs || [];
+
+            const participants = new Map();
+
+            // First, collect data from leaderboard
+            [...leaderboard, ...reviewLeaderboard].forEach(p => {
+                if (!participants.has(p.username)) {
+                    participants.set(p.username, {
+                        username: p.username,
+                        avatar: p.avatar,
+                        url: p.url,
+                        mergedCount: p.mergedCount || 0,
+                        prCount: p.prCount || 0,
+                        reviewCount: p.reviewCount || 0,
+                        openCount: 0,
+                        closedCount: 0
+                    });
+                } else {
+                    const existing = participants.get(p.username);
+                    existing.mergedCount = Math.max(existing.mergedCount || 0, p.mergedCount || 0);
+                    existing.prCount = Math.max(existing.prCount || 0, p.prCount || 0);
+                    existing.reviewCount = Math.max(existing.reviewCount || 0, p.reviewCount || 0);
+                }
+            });
+
+    
+            const tbody = document.getElementById('participants-table-body');
+            tbody.innerHTML = '';
+
+            if (participants.size === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-4 text-center text-gray-500">No participants found yet.</td></tr>';
+                return;
+            }
+
+            Array.from(participants.values())
+                .sort((a, b) => b.prCount - a.prCount) // Sort by total PRs
+                .forEach(participant => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <img class="h-8 w-8 rounded-full" src="${participant.avatar}" alt="${participant.username}">
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap">
+                            <a href="${participant.url}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 flex items-center">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                                ${participant.username}
+                            </a>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${participant.mergedCount}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${participant.prCount}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${participant.reviewCount}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+        }
+
+        function loadPRs() {
+            if (!currentData) return;
+            const recentPRs = currentData.recentPRs || currentData.stats?.recentPRs || [];
+
+            const tbody = document.getElementById('prs-table-body');
+            tbody.innerHTML = '';
+
+            if (recentPRs.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="px-4 py-2 text-center text-gray-500">No detailed pull request data available for this hackathon. Try a different hackathon with recent PR data.</td></tr>';
+                return;
+            }
+
+            recentPRs.forEach(pr => {
+                const row = document.createElement('tr');
+                const createdDate = new Date(pr.created_at).toLocaleString();
+                const mergedDate = pr.merged_at ? new Date(pr.merged_at).toLocaleString() : '-';
+
+                // Status badge
+                const statusBadge = document.createElement('span');
+                if (pr.state === 'closed' && pr.merged_at) {
+                    statusBadge.className = 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800';
+                    statusBadge.textContent = 'Merged';
+                } else if (pr.state === 'closed') {
+                    statusBadge.className = 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800';
+                    statusBadge.textContent = 'Closed';
+                } else {
+                    statusBadge.className = 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800';
+                    statusBadge.textContent = 'Open';
+                }
+
+                // Title cell
+                const tdTitle = document.createElement('td');
+                tdTitle.className = 'px-4 py-2';
+                const link = document.createElement('a');
+                link.href = pr.url;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.className = 'text-blue-600 hover:text-blue-800 flex items-center';
+                link.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                    ${pr.title}
+                `;
+                tdTitle.appendChild(link);
+
+                // Author cell
+                const tdAuthor = document.createElement('td');
+                tdAuthor.className = 'px-4 py-2 whitespace-nowrap';
+                tdAuthor.innerHTML = `
+                    <div class="flex items-center">
+                        <img class="h-6 w-6 rounded-full mr-2" src="${pr.avatar}" alt="${pr.username}">
+                        <span class="text-sm text-gray-900">${pr.username}</span>
+                    </div>
+                `;
+
+                // Repository cell
+                const tdRepo = document.createElement('td');
+                tdRepo.className = 'px-4 py-2 whitespace-nowrap text-sm text-gray-900';
+                tdRepo.textContent = pr.repository.replace('OWASP-BLT/', '');
+
+                // Status cell
+                const tdStatus = document.createElement('td');
+                tdStatus.className = 'px-4 py-2 whitespace-nowrap';
+                tdStatus.appendChild(statusBadge);
+
+                // Created cell
+                const tdCreated = document.createElement('td');
+                tdCreated.className = 'px-4 py-2 whitespace-nowrap text-sm text-gray-900';
+                tdCreated.textContent = createdDate;
+
+                // Merged cell
+                const tdMerged = document.createElement('td');
+                tdMerged.className = 'px-4 py-2 whitespace-nowrap text-sm text-gray-900';
+                tdMerged.textContent = mergedDate;
+
+                row.appendChild(tdTitle);
+                row.appendChild(tdAuthor);
+                row.appendChild(tdRepo);
+                row.appendChild(tdStatus);
+                row.appendChild(tdCreated);
+                row.appendChild(tdMerged);
+                tbody.appendChild(row);
+            });
+        }
+
+        function loadMergedPRs() {
+            if (!currentData) return;
+            const repoStats = currentData.stats.repoStats || {};
+            const tbody = document.getElementById('merged-prs-table-body');
+            tbody.innerHTML = '';
+
+            const reposArray = Object.entries(repoStats)
+                .filter(([, stats]) => stats.merged > 0)
+                .map(([repo, stats]) => ({ repo, stats }))
+                .sort((a, b) => b.stats.merged - a.stats.merged);
+
+            reposArray.forEach(({ repo, stats }) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-4 py-2">
+                        <a href="https://github.com/${repo}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 flex items-center">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <path d="M9 18l6-6-6-6"/>
+                            </svg>
+                            ${repo}
+                        </a>
+                    </td>
+                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${stats.merged}</td>
+                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${stats.total}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            if (tbody.children.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" class="px-4 py-2 text-center text-gray-500">No merged PR data available</td></tr>';
+            }
+        }
+
+        function loadIssues() {
+            if (!currentData || !currentData.stats) return;
+            const repoStats = currentData.stats.repoStats || {};
+            const tbody = document.getElementById('issues-table-body');
+            tbody.innerHTML = '';
+
+            Object.entries(repoStats).forEach(([repo, stats]) => {
+                const totalIssues = (stats.issues || 0) + (stats.closedIssues || 0);
+                if (totalIssues > 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="px-4 py-2">
+                            <a href="https://github.com/${repo}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 flex items-center">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                                ${repo}
+                            </a>
+                        </td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${stats.issues || 0}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${stats.closedIssues || 0}</td>
+                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${totalIssues}</td>
+                    `;
+                    tbody.appendChild(row);
+                }
+            });
+
+            if (tbody.children.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="px-4 py-2 text-center text-gray-500">No issue data available</td></tr>';
+            }
+        }
+
+        function loadRepositories() {
+            if (!currentData) return;
+            const repositories = currentData.repositories || [];
+            const repoStats = currentData.stats.repoStats || {};
+            const tbody = document.getElementById('repos-table-body');
+            tbody.innerHTML = '';
+
+            repositories.forEach(repo => {
+                const stats = repoStats[repo] || { total: 0, merged: 0, issues: 0, closedIssues: 0 };
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="px-4 py-2">
+                        <a href="https://github.com/${repo}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 flex items-center">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                                <path d="M9 18l6-6-6-6"/>
+                            </svg>
+                            ${repo}
+                        </a>
+                    </td>
+                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${stats.total || 0}</td>
+                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${stats.merged || 0}</td>
+                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${stats.issues || 0}</td>
+                    <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-900">${stats.closedIssues || 0}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            if (tbody.children.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="px-4 py-2 text-center text-gray-500">No repositories available</td></tr>';
+            }
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
+
